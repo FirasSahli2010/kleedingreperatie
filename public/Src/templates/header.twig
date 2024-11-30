@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="{{ lang }}">
+    <head>
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DVMG11ZNME"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DVMG11ZNME');
+</script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Xclinic: Beauty Clinic in Bussum">
+        <title>{{ title }}XClinic</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        {# <link href="/css/style.css" rel="stylesheet"> #}
+
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/style-theme.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/spacing.css">
+    <link rel="stylesheet" href="/assets/css/slick.css">
+    <link rel="stylesheet" href="/assets/css/nice-select.css">
+    <link rel="stylesheet" href="/assets/css/venobox.min.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/jquery.exzoom.css">
+
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <!-- <link rel="stylesheet" href="/assets/css/rtl.css"> -->
+    <!--sweet Alert-->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- toastre alert CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="/assets/css/toastr.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+     
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+        <style>
+            body {
+                background-color: {{ backgroundcolor }};
+                background-image: url("{{ settings.background_image }}");
+                background-size: cover;
+                color: {{ color }};
+                font-weight: 300;
+                font-size: {{ fontsize }};
+            }
+
+            body[lang="ar"] {
+                direction: rtl;
+                text-align: right;
+            }
+            
+            a { color: {{ linkcolor}} ; } 
+            #map { height: 180px; }
+
+            
+
+            .card-body {
+              background-color: tranparent;
+              color: {{ color }};
+            }
+
+
+            .treatment-categories {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .category-row {
+                display: flex;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .category-block {
+                flex: 1 0 23%;
+                margin: 10px;
+                {# background-color: #f4f4f4; #}
+                background-color: transparent;
+                text-align: center;
+                border-radius: 5px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .category-block img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border-bottom: 2px solid #ddd;
+            }
+
+            .category-block h3 {
+                padding: 10px;
+                font-size: 18px;
+                margin: 0;
+            }
+
+            .joinchat {
+                --red: 37;
+                --green: 211;
+                --blue: 102;
+                --bw: 100;
+            }
+
+            {# .whatsapp-button {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000;
+                background-color: #25D366;
+                border-radius: 50px;
+                padding: 10px;
+                box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s ease;
+            } #}
+
+            .whatsapp-button {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000;
+                background-color: white;
+                border-radius: 50px;
+                padding: 10px;
+                box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s ease;
+            }
+
+            .whatsapp-button img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .whatsapp-button:hover {
+                transform: scale(1.1);
+            }
+
+
+            @media (orientation: landscape) and (height <= 480px), (width <= 480px) {
+                .joinchat {
+                    --bottom: 6px;
+                    --sep: 6px;
+                }
+            }
+            .joinchat--show {
+                display: block;
+                transform: scaleX(1);
+            }
+            .joinchat {
+                --bottom: 20px;
+                --sep: 20px;
+                --s: 60px;
+                display: none;
+                position: fixed;
+                z-index: 9000;
+                right: var(--sep);
+                bottom: var(--bottom);
+                font: normal normal normal 16px / 1.625em var(--joinchat-font);
+                letter-spacing: 0;
+                animation: joinchat_show .5s cubic-bezier(.18,.89,.32,1.28) 10ms both;
+                transform: scale3d(0, 0, 0);
+                transform-origin: calc(var(--s) / -2) calc(var(--s) / -4);
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+                touch-action: manipulation;
+                -webkit-font-smoothing: antialiased;
+                -webkit-tap-highlight-color: rgb(0 0 0 / 0);
+            }
+
+            @media (max-width: 1200px) {
+                .category-block {
+                    flex: 1 0 30%; /* Three columns on medium screens */
+                }
+            }
+
+            @media (max-width: 768px) {
+                .category-block {
+                    flex: 1 0 45%; /* Two columns on small screens */
+                }
+            }
+
+            @media (max-width: 480px) {
+                .category-block {
+                    flex: 1 0 100%; /* One column on extra small screens */
+                }
+            }
+
+            .category-block:hover img {
+                transform: scale(1.05);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .category-block:hover {
+                {# background-color: #eaeaea; #}
+                background-color: transparent;
+            }
+
+
+            .poppins-thin {
+              font-family: "Poppins", sans-serif;
+              font-weight: 100;
+              font-style: normal;
+            }
+
+            .poppins-extralight {
+              font-family: "Poppins", sans-serif;
+              font-weight: 200;
+              font-style: normal;
+            }
+
+            .poppins-light {
+              font-family: "Poppins", sans-serif;
+              font-weight: 300;
+              font-style: normal;
+            }
+
+            .poppins-regular {
+              font-family: "Poppins", sans-serif;
+              font-weight: 400;
+              font-style: normal;
+            }
+
+            .poppins-medium {
+              font-family: "Poppins", sans-serif;
+              font-weight: 500;
+              font-style: normal;
+            }
+
+            .poppins-semibold {
+              font-family: "Poppins", sans-serif;
+              font-weight: 600;
+              font-style: normal;
+            }
+
+            .poppins-bold {
+              font-family: "Poppins", sans-serif;
+              font-weight: 700;
+              font-style: normal;
+            }
+
+            .poppins-extrabold {
+              font-family: "Poppins", sans-serif;
+              font-weight: 800;
+              font-style: normal;
+            }
+
+            .poppins-black {
+              font-family: "Poppins", sans-serif;
+              font-weight: 900;
+              font-style: normal;
+            }
+
+            .poppins-thin-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 100;
+              font-style: italic;
+            }
+
+            .poppins-extralight-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 200;
+              font-style: italic;
+            }
+
+            .poppins-light-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 300;
+              font-style: italic;
+            }
+
+            .poppins-regular-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 400;
+              font-style: italic;
+            }
+
+            .poppins-medium-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 500;
+              font-style: italic;
+            }
+
+            .poppins-semibold-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 600;
+              font-style: italic;
+            }
+
+            .poppins-bold-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 700;
+              font-style: italic;
+            }
+
+            .poppins-extrabold-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 800;
+              font-style: italic;
+            }
+
+            .poppins-black-italic {
+              font-family: "Poppins", sans-serif;
+              font-weight: 900;
+              font-style: italic;
+            }
+
+            .open-sans-aboutus {
+              font-family: "Open Sans", sans-serif;
+              font-optical-sizing: auto;
+              font-weight: 400;
+              font-style: normal;
+              font-variation-settings:
+                "wdth" 100;
+            }
+
+            .open-sans-normal {
+              font-family: "Open Sans", sans-serif;
+              font-optical-sizing: auto;
+              font-weight: 400;
+              font-style: normal;
+            }
+
+            .language-switcher a {
+                padding: 5px 10px;
+                text-decoration: none;
+                color: #333;
+            }
+
+            .language-switcher a.active {
+                font-weight: bold;
+                color: #000;
+            }
+
+            .language-switcher ul {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              display: flex;
+            }
+
+            .language-switcher ul li {
+              margin-right: 10px;
+            }
+
+            .language-switcher ul li img {
+              width: 24px;
+              height: auto;
+              cursor: pointer;
+            }
+
+            @media screen and (max-width: 600px) {
+              .language-switcher ul li img {
+                width: 20px;
+              }
+            }
+
+            {# @media (max-width: 768px) {
+                .language-switcher {
+                    justify-content: center;
+                    font-size: 14px;  /* Smaller font size for smaller screens */
+                }
+            } #}
+            
+        </style>
+        <script>
+          document.querySelectorAll('.language-switcher a').forEach(link => {
+              link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const selectedLanguage = this.getAttribute('href').substring(1);
+                // Perform language switching logic here.
+                // console.log(`Switching to ${selectedLanguage}`);
+              });
+            });
+
+            const userLang = navigator.language || navigator.userLanguage;
+        </script>
+    </head>
+    <body lang="{{ lang }}">
+    
+    <div class="container-fluid">
+    {#
+    style="border-style: none; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #F1EEE9" 
+    #}
+      <div class=" row col-12 border-0 border-bottom border-bottom-1 border-bottom-secondary">
+        <div class="language-switcher col-12 col-sm-12 col-md-3 col-lg-3  col-xl-3 col-xxl-3 d-flex justify-content-start">
+            <ul class="list-unstyled d-flex m-0 p-0">
+              <li  class="me-2">
+                <a href="?lang=nl">
+                  <img src="/assets/img/nl.webp" alt="Nederlands" class="img-fluid" style="width: 25px;" />
+                </a>
+              </li>
+              <li>
+                <a href="?lang=en">
+                  <img src="/assets/img/en.webp" alt="English" class="img-fluid" style="width: 25px;" />
+                </a>
+              </li>
+              <li>
+                <a href="?lang=ar">
+                  <img src="/assets/img/ar.webp" alt="العربية" class="img-fluid" style="width: 25px;"/>
+                </a>
+              </li>
+            </ul>
+          {# </div> #}
+        </div>
+        <div class=" d-none col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-none d-md-block text-center">
+          &nbsp;
+        </div>
+        <div class=" col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 text-center text-md-right" style=" text-align: right; direction: rtl;">
+          <div class="col-12 d-flex justify-content-end align-items-center" style="display: flex; flex-wrap: nowrap;">
+              <div class="me-3" style="text-align: center;"><a href="https://www.facebook.com/6156562793269" clas="menu-link-secondary" style= "" target="_blank"><img src="/assets/img/facebook.png" style="width: 25px; height: 25px;" /></a></div>
+              <div class="me-3" style="text-align: center;"><a href="https://www.instagram.com/Xclinic_" class="menu-link-secondary" style= "display: flex; flex-wrap: nowrap;" target="_blank"><img src="/assets/img/instagram.png" style="width: 25px; height: 25px;" /></a></div>
+              <div class="me-6" style="dirction: ltr; display: flex; flex-wrap: nowrap;">
+              {# <a class="nav-link menu-link-secondary" style= "color: {{ linkcolor }};" href="/afspraak/" target="_blank"> #}
+              <script src="https://widget.treatwell.nl/common/venue-menu/javascript/widget-button.js?v1"></script>
+              <a class="nav-link menu-link-secondary" style= "color: {{ linkcolor }};" href='https://www.treatwell.nl/' id="wahanda-online-booking-widget"
+                    onclick='wahanda.openOnlineBookingWidget("https://widget.treatwell.nl/salon/443111/menu/"); return false;' target="_blank"> Maak een afspraak 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-plus" viewBox="0 0 16 16">
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+                    <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM8 8a.5.5 0 0 1 .5.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5A.5.5 0 0 1 8 8"/></svg></a></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <header class="p-3 mb-3 border-bottom">
+            <div class="container-fluid">
+              <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <nav class="navbar navbar-expand-lg navbar-light col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                {#dd-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none#}
+                  <a href="/" class="navbar-brand d-flex align-items-center">
+                    {# <img src="/assets/img/logo.png"  style="width: 150px;" /> #}
+                    <img src="/assets/img/{{ logo }}"  style="width: 150px;" alt="XClinic" />
+                  </a>
+
+                  {#Toggler for Mobile (Hamburger Icon)#} 
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  {# <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto"> #}
+                  <div class="collapse navbar-collapse" id="navbarCollapse"> 
+                  {#class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"#}
+                      <ul class="navbar-nav ms-auto mb-2 justify-content-center mb-lg-0 mb-md-0">
+                          {% for item in navbar_items %}
+                              {#nav-link px-2 menu-link-secondary#}
+                              <li class="nav-item"><a class="nav-link menu-link-secondary" style= "color: {{ linkcolor }};" href="{{ item.link }}">{{ item.title }}</a></li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+                  {# <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                  </form> #}
+                </nav>
+              </div>
+            </div>
+        </header>
+      </div>

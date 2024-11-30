@@ -1,0 +1,42 @@
+{% extends 'website_theme.twig' %}
+{% block content %}
+<main class="flex-shrink-0">
+    <div class="content">
+        <div class="row" style="text-align: justify; ">
+            {% for block in blocks %}
+                {% if block.type == 'photo_carsoul' %}
+                    <div style="text-align: center; padding-top: 5px; padding-bottom: 0;  background-color:#E1C3C3; padding-bottom: 5px; padding-top: 10px;" class="col-12">
+                        {% include 'blocks/photo_carousel.twig' %}
+                    </div>
+                {% elseif block.type == 'photo_slider' %}
+                    <div style="text-align: center; padding-top: 5px; padding-bottom: 15px;" class="col-12">
+                        {% include 'blocks/photo_slider.twig' with { 'content': block.content } %}
+                    </div>
+                {% elseif block.type == 'client_reviews' %}
+                    <div style="text-align: center; padding-top: 5px; padding-bottom: 15px;" class="col-12">
+                        {% include 'blocks/client_reviews.twig' %}
+                    </div>
+                {% elseif block.type == 'photo_gallery' %}
+                    <div style="text-align: center; padding-top: 5px; padding-bottom: 15px;" class="col-12">
+                        {% include 'blocks/photo_gallery.twig' with { 'reviews': block} %}
+                    </div>
+                {% elseif block.type == 'treatement_categories' %}
+                    <div style="text-align: center; padding-top: 5px; padding-bottom: 15px;" class="col-12">
+                        {% include 'blocks/treatement_categories.twig' with { 'content': block.content } %}
+                    </div>
+                {% elseif block.type == 'custom_html' %}
+                    <div style="text-align: center; padding-top: 5px; padding-bottom: 15px;" class="col-12">
+                        {{ block.content|raw }}
+                    </div>
+                {% endif %}
+                <div class="row col-12" style="text-align: cneter">
+                    <div style="width:25%"> &nbsp;</div>
+                    <div style="width:50%"> <hr style="color:#793B3F" /></div>
+                    <div style="width:25%"> &nbsp;</div>
+                </div>
+                
+            {% endfor %}
+        </div>
+    </div>
+</main
+{% endblock %}

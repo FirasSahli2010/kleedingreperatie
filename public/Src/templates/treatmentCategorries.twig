@@ -1,0 +1,45 @@
+{% extends 'website_theme.twig' %}
+{% block content %}
+
+<section class="treatment-categories">
+<div class="col-12 justify-content-middel" style="text-align: center;">
+    <h1>Behandelingen</h1>
+</div>
+    <div <div class="category-row categories-grid col-12 row">
+        {% for category in categories %}
+        <div class="category-block category col-3">
+            <a href="/{{ language }}/treatments/category/{{ category.id }}">
+                <img src="/assets/img/treatement_category/{{ category.image }}" alt="{{ category.title }}" style="width:314px;">
+                <h3>{{ category.name }}</h3>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    {# <div <div class="category-row categories-grid col-12 row">
+        {% for treatment in treatments %}
+        <div class="category-block category col-2" style="border-style: solid; border-color: #72373B; border-width: 1px;">
+            <div class="portfolio-entry-media entry-media" style=" text-decoration: none;">
+                <a href="/{{ language }}/treatments/{{ treatment.id }}" title="{{ treatment.title }}" class="portfolio-entry-media-link">
+                    <img width="150" src="/assets/img/treatment_images/{{ treatment.image }}" class="portfolio-entry-img wpex-align-middle skip-lazy" alt="{{ treatment.title }}" data-no-lazy="1" sizes="(max-width: 150px) 100vw, 100px">
+                </a>
+            </div>
+            <div style=" text-align: center; ">
+                <h2 class="portfolio-entry-title entry-title wpex-mb-5">
+                    <a href="/{{ language }} /treatments/{{ treatment.id }}" title="{{ treatment.title }}">
+                        <span style=" color: #511521; font-family: 'Montserrat', sans-serif; font-optical-sizing: auto; font-weight: 400; font-style: normal; text-decoration: underline;">{{ treatment.title }} </span>
+                    </a>
+                    <br/> <span style=" font-feature-settings: normal; font-size: 12px; font-weight: 300; color: #511521; text-align: center; ">Tarief: {{ treatment.price }} </span>
+                </h2>
+                <div class="portfolio-entry-readmore-wrap entry-readmore-wrap wpex-my-15 wpex-clr">
+                    <a href="/{{ language }} /treatments/{{ treatment.id }}" class="theme-txt-link" aria-label="Bekijk deze behandeling about Hydrafacial" style=" color: #511521;">
+                        Bekijk deze behandeling
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div> #}
+</section>
+
+{% endblock %}

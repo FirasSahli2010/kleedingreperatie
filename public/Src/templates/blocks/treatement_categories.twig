@@ -1,0 +1,15 @@
+<section class="treatment-categories">
+<div class="col-12 justify-content-middel">
+    <h2>Onze Behandelingen</h2>
+</div>
+    <div class="category-row categories-grid col-12 row">
+        {% for category in categories %}
+        <div class="category-block category col-12 ">
+            <a href="/{{ language }}/treatments/category/{{ category.id }}">
+                <img src="/assets/img/treatement_category/{{ category.image }}" alt="{{ category.title }}" style="width:314px;">
+                <h3>{{ category.name }}</h3>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>

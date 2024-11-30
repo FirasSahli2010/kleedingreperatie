@@ -1,0 +1,43 @@
+{% extends 'website_theme.twig' %}
+{% block content %}
+<main class="flex-shrink-0">
+    <div class="content">
+        <div class="container py-4 px-3 mx-auto">
+            <h1>Klantbeoordelingen</h1>
+        </div>
+        <div class="row">
+            {% for record in records %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ record.name }}</h5>
+                            <div>
+                                {{record.content| raw}}
+                            </div>
+                            <a href="/review/{{ record.id }}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <form action="/submit-review" method="post">
+                <label for="name">Naam:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Telefoonnummer (optioneel):</label>
+                <input type="text" id="phone" name="phone">
+
+                <label for="review">Uw beoordeling:</label>
+                <textarea id="review" name="review" required></textarea>
+
+                <button type="submit">Beoordeling Verzenden</button>
+            </form>
+        </div>
+    </div>
+</main
+
+{% endblock %}

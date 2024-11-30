@@ -1,0 +1,25 @@
+{# gallery.twig #}
+{% extends 'website_theme.twig' %}
+{% block content %}
+<main class="flex-shrink-0">
+    <div class="content">
+        <div class="container py-4 px-3 mx-auto">
+            <h1>Gallery</h1>
+        </div>
+        <div class="row">
+            {% for gallery in galleries %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ gallery.file_path }}" class="card-img-top" alt="Gallery Thumbnail">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ gallery.title }}</h5>
+                            <p class="card-text">{{ gallery.title }}</p>
+                            <a href="/{{language}}/gallery/{{ gallery.id }}" class="btn btn-primary">View Gallery</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main
+{% endblock %}

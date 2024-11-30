@@ -1,0 +1,65 @@
+{# page.twig #}
+{% extends 'website_theme.twig' %}
+{% block content %}
+<main class="flex-shrink-0">
+    <div class="content">
+        <div class="container py-4 px-3 mx-auto text-center">
+            <h1>Contact ons</h1>
+        </div>
+        <div class="row">
+            <div class="col-6 text-center">
+                <h2>Contact Information</h2>
+                <p>Address: {{ clinic_address }}</p>
+                <p> {{ clinic_postcode }}</p>
+                <p>Phone: {{ clinic_phone }}</p>
+                <p>Mobiel: {{ clinic_phone }}</p>
+                <p>Email: <a href="mailto:{{ clinic_email }}">{{ clinic_email }}</a></p>
+                <p>Business Hours: {{ clinic_hours }}</p>
+            </div>
+            
+            <div class="col-6 text-center">
+                <div>
+                    <h2>Location</h2>
+                </div>
+                <div clss="col-6">
+                    <a href="https://maps.google.com/?q=52.268,5.1722" target="_blank">View on Google Maps</a>
+                    <div id="map" style="width: 90%;"></div>
+                        
+                        <script>
+                            const map = L.map('map').setView([52.268,5.1722], 17x);
+                            const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', 
+                            {
+                                maxZoom: 19,
+                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                            }).addTo(map);
+                            const marker = L.marker([52.268,5.1722]).addTo(map);
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Send Us a Message</h2>
+            <form method="post" action="/contact">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit">Send</button>
+            </form>            
+        </div>
+    </div>
+</main>
+{% endblock %}

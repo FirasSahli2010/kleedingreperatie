@@ -1,0 +1,50 @@
+<style>
+.star-rating {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #d3d3d3; /* grey for empty stars */
+    position: absolute;
+    top: 0;
+    left: 0;
+    position: relative;
+}
+
+.star-rating .filled {
+    color: #ffcc00; /* gold for filled stars */
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.reviewTitle {
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+</style>
+<div class="client-reviews-block">
+    <h2>Client Reviews</h2>
+    <div class="reviews row">
+        {% for review in reviews %}
+            <div class="review col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                <div>
+                    <span class="reviewTitle" >
+                    {{ review.name }}
+                    </span>
+                    <div class="stars">
+                        <!-- Display colored stars based on rating -->
+                        {% for i in 1..5 %}
+                            <span class="star {% if i <= review.stars %}filled{% endif %}">★</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="open-sans-normal" style="text-align: justify;">{{ review.review|slice(0, 100) | raw }}... <a href="/klantbeoordelingen/{{ review.id }}">Read more</a></div>
+                <div>Rating: {{ review.stars }}/5</div>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="/{{language}}/klantbeoordelingen">See all reviews</a>
+</div>

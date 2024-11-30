@@ -1,0 +1,57 @@
+{% extends 'website_theme.twig' %}
+{% block content %}
+<main class="flex-shrink-0">
+    <div class="content">
+        <div class="container py-4 px-3 mx-auto">
+            <h2>Klantenbeoordelingen</h2>
+        </div>
+        <div class="row">
+            <ul>
+                {% for review in records %}
+                    <li class="review-item">
+                        <strong>{{ review.name }}</strong> - <span>{{ review.created_at|date("d-m-Y") }} {{review.stars}}</span>
+                        <p>{{ review.stars }} / 5</p>
+                        <div class="stars">
+                            <!-- Display colored stars based on rating -->
+                            {% for i in 1..5 %}
+                                <span class="star {% if i <= review.stars %}filled{% endif %}">★</span>
+                            {% endfor %}
+                        </div>
+
+                        <p class="truncated-review">
+                            {{ review.review[:100] | raw }}...
+                        </p>
+                        <button class="expand-btn" onclick="toggleReviewDetails('{{ review.id }}')">Lees Meer</button>
+
+                        <div id="review-{{ review.id }}" class="full-review" style="display:none;">
+                            <p>{{ review.review | raw }}</p>
+                            {% if review.replay %}
+                                <p><em>Antwoord van de kliniek: {{ review.replay |raw}}</em></p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button id="load-more-reviews" onclick="loadMoreReviews()">Meer Reviews Laden</button>
+        </div>
+        <div class="row">
+            <form action="/submit-review" method="post">
+                <label for="name">Naam:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Telefoonnummer (optioneel):</label>
+                <input type="text" id="phone" name="phone">
+
+                <label for="review">Uw beoordeling:</label>
+                <textarea id="review" name="review" required></textarea>
+
+                <button type="submit">Beoordeling Verzenden</button>
+            </form>
+        </div>
+    </div>
+</main
+
+{% endblock %}

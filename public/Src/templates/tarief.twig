@@ -1,0 +1,40 @@
+{% extends 'website_theme.twig' %}
+
+{% block content %}
+<div class="prices-page">
+    <h1>Tarieven</h1>
+    
+    {% for category in categories %}
+        <div class="category-section">
+            <h2>{{ category.name }}</h2>
+            <table class="prices-table">
+                <thead>
+                    <tr>
+                        <th class="treatment-name-column">Behandeling</th>
+                        <th>Duur</th>
+                        <th>Prijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for treatment in category.treatments %}
+                        <tr class="{% if loop.index0 is even %}even-row{% else %}odd-row{% endif %}">
+                            <td class="treatment-name-column">{{ treatment.title }}</td>
+                            <td>{{ treatment.duration }}</td>
+                            <td>{% if treatment.price != treatment.offer_price and treatment.offer_price is not null %}
+                                <span class="strikethrough">{{ treatment.price | number_format(2) }} €</span>
+                                <span class="offer-price">{{ treatment.offer_price | number_format(2) }} €</span>
+                            {% else %}
+                                {{ treatment.price | number_format(2) }} €
+                            {% endif %}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">No treatments available in this category.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

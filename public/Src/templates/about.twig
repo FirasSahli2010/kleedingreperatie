@@ -1,0 +1,24 @@
+{# gallery.twig #}
+{% extends 'website_theme.twig' %}
+{% block content %}
+<main class="flex-shrink-0">
+    <div class="content">
+        <div class="container py-4 px-3 mx-auto">
+            <h1>Over ons</h1>
+        </div>
+        <div class="row open-sans-aboutus">
+            {% for record in records %}
+                <div class="col-12">
+                    <div class="card mb-4" style = "background-color: transparent; ">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ record.title }}</h2>
+                            <div >{{ record.content | raw }}</div>
+                            <a href="/{{record.language}}/aboutus/{{ record.id }}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main
+{% endblock %}

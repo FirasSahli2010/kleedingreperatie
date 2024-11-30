@@ -1,0 +1,30 @@
+{# page.twig #}
+{{ header|raw }}
+
+<main class="flex-shrink-0">
+    <div class="content">
+        <div class="container py-4 px-3 mx-auto">
+            <h1>Hello, Bootstrap and Webpack! {{page_content}}</h1>
+            <button class="btn btn-primary">Primary button</button>
+            <a href="#">kokk </a>
+        </div>
+        <div id="map" style="width: 600px; height: 600px;"></div>
+        <script>
+
+	const map = L.map('map').setView([52.268,5.1722], 13);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const marker = L.marker([52.268,5.1722]).addTo(map);
+
+</script>
+
+</main>
+
+    {# Page-specific content here #}
+
+
+{{ footer|raw }}

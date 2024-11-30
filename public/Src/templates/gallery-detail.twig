@@ -1,0 +1,15 @@
+{# page.twig #}
+{{ header|raw }}
+
+        <h1>{{ gallery.title }}</h1>
+        <p>{{ gallery.description }}</p>
+        <div class="row">
+            {% for image in gallery.images %}
+                <div class="col-md-4">
+                    <img src="{{ image.url }}" class="img-fluid" alt="{{ image.title }}">
+                    <p>{{ image.title }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="/gallery" class="btn btn-secondary">Back to Gallery Overview</a>
+{{ include('footer.html') }}

@@ -1,0 +1,47 @@
+{% extends 'website_theme.twig' %}
+{% block content %}
+<div >
+<h1>Treatments</h1>
+
+<form method="get" action="/{{ language }}/treatments/search">
+    <input type="text" name="q" value="{{ searchTerm ?? '' }}" placeholder="Search treatments">
+    <select name="category">
+        <option value="">All Categories</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}" {% if currentCategory == category.id %}selected{% endif %}>
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+<div class = "col-12 row">
+    {% for treatment in treatments %}
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4  col-xl-4 col-xxl-4 treatment-item">
+            <div class="treatment-title"><h2>{{ treatment.title }}</h2></div>
+            <!-- Treatment Description, limited to 3 lines -->
+            {# <div class="treatment-description limited-lines">{{ treatment.description | raw }}</div> #}
+            <!-- Price and Duration on the same line -->
+            <div class="treatment-info">
+                <span class="treatment-price">Prijs: {{ treatment.price }}</span>
+                <span class="treatment-duration">Behandeltijd: {{ treatment.duration }}</span>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+<div>
+    {% if currentPage > 1 %}
+        <a href="?p={{ currentPage - 1 }}">Previous</a>
+    {% endif %}
+
+    Page {{ currentPage }} of {{ totalPages }}
+
+    {% if currentPage < totalPages %}
+        <a href="?p={{ currentPage + 1 }}">Next</a>
+    {% endif %}
+</div>
+</div>
+{% endblock %}
