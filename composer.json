@@ -10,5 +10,10 @@
         "check": [
             "php checkRequirements.php"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
